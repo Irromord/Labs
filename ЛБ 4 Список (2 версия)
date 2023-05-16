@@ -1,0 +1,76 @@
+//В Java бинарное дерево можно реализовать с помощью списков. 
+//Каждый узел дерева будет объектом списка, который имеет три поля: значение узла, ссылку на левое поддерево и ссылку на правое поддерево.
+
+public class TreeNode {
+    private int value;
+    private TreeNode left;
+    private TreeNode right;
+
+    public TreeNode(int value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public TreeNode getLeft() {
+        return left;
+    }
+
+    public void setLeft(TreeNode left) {
+        this.left = left;
+    }
+
+    public TreeNode getRight() {
+        return right;
+    }
+
+    public void setRight(TreeNode right) {
+        this.right = right;
+    }
+}
+
+//Далее нужно создать класс бинарного дерева, который будет содержать ссылку на корневой узел. Вот пример:
+
+public class BinaryTree {
+    private TreeNode root;
+
+    public BinaryTree() {
+        root = null;
+    }
+
+    public void insert(int value) {
+        root = insertHelper(root, value);
+    }
+
+    private TreeNode insertHelper(TreeNode node, int value) {
+        if (node == null) {
+            node = new TreeNode(value);
+        } else if (value < node.getValue()) {
+            node.setLeft(insertHelper(node.getLeft(), value));
+        } else {
+            node.setRight(insertHelper(node.getRight(), value));
+        }
+        return node;
+    }
+
+    public void printInOrder() {
+        printInOrderHelper(root);
+    }
+
+    private void printInOrderHelper(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        printInOrderHelper(node.getLeft());
+        System.out.print(node.getValue() + " ");
+        printInOrderHelper(node.getRight());
+    }
+}
+
+//Метод `insert` добавляет новый узел в дерево, метод `printInOrder` распечатывает значения узлов в дереве в порядке:
+//сначала левое поддерево, затем корень, затем правое поддерево
